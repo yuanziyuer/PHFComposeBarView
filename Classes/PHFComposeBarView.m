@@ -688,14 +688,14 @@ static CGFloat kTextViewToSuperviewHeightDelta;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([[self delegate] respondsToSelector:@selector(textView:shouldChangeTextInRange:replacementText:)]) {
-        [[self delegate] textView:textView shouldChangeTextInRange:range replacementText:text];
+    if(textView.text.length + text.length > textLengthLimit) {
+        return NO;
     }
-    
+    return YES;
 }
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    if ([[self delegate] respondsToSelector:@selector(textViewDidEndEditing:)]) {
-        [[self delegate] textViewDidEndEditing:textView];
+    if (textView.text.length > textLengthLimit) {
+        textView.text = [textView.text substringToIndex:textLengthLimit];
     }
 }
 

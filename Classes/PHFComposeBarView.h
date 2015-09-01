@@ -96,6 +96,5 @@ extern NSString *const PHFComposeBarViewFrameEndUserInfoKey;          // NSValue
 - (void)composeBarView:(PHFComposeBarView *)composeBarView
     didChangeFromFrame:(CGRect)startFrame
                toFrame:(CGRect)endFrame;
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
-- (void)textViewDidEndEditing:(UITextView *)textView;
+
 @end
