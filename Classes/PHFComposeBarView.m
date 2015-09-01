@@ -4,7 +4,7 @@
 #import "PHFComposeBarView_TextView.h"
 #import "PHFComposeBarView_Button.h"
 
-
+static NSInteger const textLengthLimit = 200;
 CGFloat const PHFComposeBarViewInitialHeight = 44.0f;
 
 
@@ -686,5 +686,21 @@ static CGFloat kTextViewToSuperviewHeightDelta;
     [self updateCharCountLabel];
     [self updateButtonEnabled];
 }
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if(range.length + range.location > textLengthLimit) {
+        return NO;
+    }
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return (newLength > 25) ? NO : YES;
+    
+}
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if (textView.text.length > textLengthLimit) {
+        textView.text = [textView.text substringToIndex:textLengthLimit];
+    }
+    
+}
+
 
 @end
